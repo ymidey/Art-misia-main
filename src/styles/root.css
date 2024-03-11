@@ -1,0 +1,30 @@
+/* Importation des polices d'écriture */
+
+
+
+/* Style global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Variables */
+:root {
+    /* Colors */
+    --main-color: #ffffff;
+    --secondary-color: #000000;
+    --third-color: #e6e7cd;
+    --fourth-color: #BC9051;
+    /* Fonts */
+    --main-font: 'Rosaviro-Italic', sans-serif;
+    --secondary-font: '/', sans-serif;
+    --third-font: '/', sans-serif;
+
+
+    /* Font-size */
+    --title-size: 2.5em;
+    --subtitle-size: 1.5em;
+    --text-size: 1em;
+}

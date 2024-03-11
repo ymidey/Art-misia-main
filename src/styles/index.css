@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'Rosarivo-Italic';
+    src: url('../assets/fonts/Rosarivo-Italic.ttf');
+}
+
+
+
+body {
+    background-color: black;
+    background-image: url("../assets/imgs/img-header.png");
+
+}
+
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: var(--main-font);
+}
+
+.header h1 {
+    font-size: 6.563rem;
+    margin-bottom: 45px;
+}
+
+.header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 155px;
+}
+
+.header h3 {
+    font-size: 1.875rem;
+    margin-bottom: 10px;
+}
+
+.header:first-child(p) {
+    font-size: 1.563rem;
+    margin-bottom: 10px;
+}
+
+.btn-link-billeterie {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    background-color: var(--fourth-color);
+    padding: 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-link-billeterie p {
+    font-size: 1.563rem;
+}

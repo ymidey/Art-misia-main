@@ -1,0 +1,206 @@
+@font-face {
+    font-family: 'Rosarivo-Italic';
+    src: url('../assets/fonts/Rosarivo-Italic.ttf');
+}
+
+body {
+    background-color: black;
+    background-image: url("../assets/imgs/img-reservation.png");
+}
+
+main {
+    font-family: var(--main-font);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 4%;
+}
+
+.div-left {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 40%;
+}
+
+.div-left h1 {
+    font-size: 4.375rem;
+    color: var(--third-color);
+}
+
+.div-left h2 {
+    font-size: 2.5rem;
+    color: var(--third-color);
+}
+
+.div-left form .custom-datepicker p {
+    font-size: 1.125rem;
+    padding: 5px;
+}
+
+.div-left .bread-crumb {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    color: var(--main-color);
+}
+
+.div-left .bread-crumb a {
+    color: rgb(201, 201, 201);
+    text-decoration: none;
+}
+
+.div-left .bread-crumb a:hover {
+    text-decoration: underline;
+}
+
+.div-left .bread-crumb .link-active {
+    color: var(--main-color);
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.div-left .bread-crumb a {
+    pointer-events: none;
+    cursor: default;
+}
+
+.div-left form {
+    color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.div-left form label {
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.div-left form input[type="radio"] {
+    visibility: hidden;
+    width: 0;
+    margin: 0;
+}
+
+.div-left form .div-horaire .div-horaire-input {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.div-left form .div-horaire .div-horaire-input label {
+    color: black;
+    background-color: var(--main-color);
+    margin-right: 1.4rem;
+    margin-bottom: 1.4rem;
+    width: fit-content;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.div-left form .div-horaire .div-horaire-input .selected {
+    background-color: var(--fourth-color);
+    color: var(--main-color);
+}
+
+.hidden {
+    display: none;
+}
+
+.div-left form button {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.125rem;
+    width: 22%;
+}
+
+.div-right {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+    height: fit-content;
+}
+
+.div-right .recapitulatif-content {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.div-right h2 {
+    font-size: 1.875rem;
+    font-weight: normal;
+    text-align: center;
+}
+
+.div-right .recapitulatif-content h3,
+.div-right .recapitulatif-content h4 {
+    font-size: 1.563rem;
+}
+
+.div-right .recapitulatif-content h3 {
+    font-weight: normal;
+}
+
+.div-right .recapitulatif-content p {
+    font-size: 1.25rem;
+    margin-top: 35px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.required {
+    color: red;
+}
+
+.custom-datepicker {
+    border: 1px solid #838383;
+    padding: 10px;
+}
+
+.month-picker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.day-past {
+    color: #ccc;
+}
+
+.day {
+    cursor: pointer;
+}
+
+.days .selected {
+    background-color: var(--fourth-color);
+    color: var(--main-color);
+}
+
+.day:hover {
+    background-color: var(--fourth-color);
+    color: var(--main-color);
+}
