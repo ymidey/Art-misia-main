@@ -10,10 +10,25 @@ body {
 
 main {
     font-family: var(--main-font);
+    margin: 0 4%;
+    color: var(--main-color);
+}
+
+main h1 {
+    color: var(--main-color);
+    margin-bottom: 15px;
+}
+
+main .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main .main-content .div-top {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 0 4%;
+    gap: 300px;
 }
 
 .div-left {
@@ -23,46 +38,23 @@ main {
     width: 40%;
 }
 
-.div-left h1 {
-    font-size: 4.375rem;
-    color: var(--third-color);
+.div-left .date-header {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
 }
 
-.div-left h2 {
-    font-size: 2.5rem;
-    color: var(--third-color);
+.line-date {
+    display: block;
+    width: 217px;
+    height: 2px;
+    background: #FBC06C;
 }
 
 .div-left form .custom-datepicker p {
     font-size: 1.125rem;
     padding: 5px;
-}
-
-.div-left .bread-crumb {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    color: var(--main-color);
-}
-
-.div-left .bread-crumb a {
-    color: rgb(201, 201, 201);
-    text-decoration: none;
-}
-
-.div-left .bread-crumb a:hover {
-    text-decoration: underline;
-}
-
-.div-left .bread-crumb .link-active {
-    color: var(--main-color);
-    cursor: pointer;
-    pointer-events: all;
-}
-
-.div-left .bread-crumb a {
-    pointer-events: none;
-    cursor: default;
 }
 
 .div-left form {
@@ -72,10 +64,14 @@ main {
     gap: 15px;
 }
 
-.div-left form label {
+.div-left form .date-header, .div-right form h2 {
     font-size: 1.4rem;
-    display: block;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.div-right form label {
+    font-size: 1.125rem;
+    font-style: italic;
 }
 
 .div-left form input[type="radio"] {
@@ -123,40 +119,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 30px;
-    border: 1px solid var(--main-color);
     color: var(--main-color);
     height: fit-content;
-}
-
-.div-right .recapitulatif-content {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-}
-
-.div-right h2 {
-    font-size: 1.875rem;
-    font-weight: normal;
-    text-align: center;
-}
-
-.div-right .recapitulatif-content h3,
-.div-right .recapitulatif-content h4 {
-    font-size: 1.563rem;
-}
-
-.div-right .recapitulatif-content h3 {
-    font-weight: normal;
-}
-
-.div-right .recapitulatif-content p {
-    font-size: 1.25rem;
-    margin-top: 35px;
-}
-
-.bold {
-    font-weight: bold;
 }
 
 .required {
@@ -203,4 +167,91 @@ main {
 .day:hover {
     background-color: var(--fourth-color);
     color: var(--main-color);
+}
+
+.div-billet-type {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.div-billet-type .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 150px;
+}
+
+.div-billet-total {
+    margin-top: 45px;
+    margin-bottom: 65px;
+}
+
+.div-right button[type="submit"], .div-bottom button[type="submit"] {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.125rem;
+
+}
+
+.div-billet-type .content div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.div-billet-type .content div input {
+    padding: 5px;
+}
+
+.div-billet-type label p {
+    margin: 0;
+    padding: 0;
+}
+
+.div-bottom * {
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.div-bottom .bottom-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.div-bottom h2 {
+    font-size: 1.875rem;
+}
+
+.div-bottom label, .div-bottom p {
+    font-size: 1.563rem;
+}
+
+.div-bottom label {
+    margin-bottom: 5px;
+}
+
+.div-bottom input {
+    padding: 7px;
+    background-color: #000;
+    border: 1px solid #838383;
+    color: var(--main-color);
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 45px;
+    justify-content: space-between;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }
