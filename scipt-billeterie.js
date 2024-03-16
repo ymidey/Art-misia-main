@@ -13,85 +13,57 @@ document.addEventListener('DOMContentLoaded', function () {
     const nextMonthButton = document.querySelector('.next-month');
     const daysContainer = document.querySelector('.days');
     const daysHeaderContainer = document.querySelector('.days-header');
-    const horaireSection = document.querySelector(
-        '.div-horaire'); // Sélection de la section des horaires
     let currentDate = new Date();
-    let selectedDate; // Garder une trace de la date sélectionnée
-    const today = new Date(); // Date d'aujourd'hui pour la comparaison
+    let selectedDateValue = '';
 
     const renderCalendar = () => {
         daysContainer.innerHTML = '';
         let date = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
-        const monthYearText = date.toLocaleString('default', {
-            month: 'long'
-        }) + ' ' + date.getFullYear();
+        const monthYearText = date.toLocaleString('default', { month: 'long' }) + ' ' + date.getFullYear();
         monthYearDisplay.textContent = monthYearText;
 
-        prevMonthButton.disabled = currentDate.getMonth() === today.getMonth() &&
-            currentDate
-                .getFullYear() === today.getFullYear();
+        prevMonthButton.disabled = currentDate.getMonth() === new Date().getMonth() && currentDate.getFullYear() === new Date().getFullYear();
 
-        daysHeaderContainer.innerHTML = ''; // Clear avant d'ajouter
+        daysHeaderContainer.innerHTML = '';
         const daysOfWeek = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
         daysOfWeek.forEach(day => {
-            const dayDiv = document.createElement('p'); // Remplacement div par p
+            const dayDiv = document.createElement('div');
             dayDiv.textContent = day;
             daysHeaderContainer.appendChild(dayDiv);
         });
 
-        const firstDayIndex = (date.getDay() === 0 ? 6 : date.getDay() - 1);
+        const firstDayIndex = date.getDay() === 0 ? 6 : date.getDay() - 1;
         for (let i = 0; i < firstDayIndex; i++) {
-            const blank = document.createElement('p'); // Remplacement div par p
+            const blank = document.createElement('div');
             blank.classList.add('blank');
             daysContainer.appendChild(blank);
         }
 
         while (date.getMonth() === currentDate.getMonth()) {
-            const dayElem = document.createElement('p'); // Remplacement div par p
-            dayElem.textContent = date.getDate();
+            const dayElem = document.createElement('div');
+            dayElem.className = 'day';
 
-            dayElem.addEventListener('click', (function (d) {
-                return function () {
-                    if (selectedDate) {
-                        selectedDate.classList.remove('selected');
-                    }
-                    dayElem.classList.add('selected');
-                    selectedDate = dayElem;
+            const dayNumber = document.createElement('p');
+            dayNumber.textContent = date.getDate();
+            dayElem.appendChild(dayNumber);
 
-                    // Obtenez la date complète
-                    const selectedDateValue = new Date(date.getFullYear(),
-                        date
-                            .getMonth(), dayElem.textContent);
-
-                    // Formatez la date en format YYYY-MM-DD (format de date HTML5)
-                    const formattedDate = selectedDateValue.toISOString()
-                        .split(
-                            'T')[0];
-
-                    // Mettre à jour la valeur du champ caché avec la date sélectionnée
-                    document.getElementById('selected_date').value =
-                        formattedDate;
-
-                    // Afficher la section des horaires lorsque l'utilisateur sélectionne une date
-                    horaireSection.classList.remove('hidden');
-                }
-            })(new Date(date)));
-
-            if (date < today) {
-                dayElem.classList.add('day-past');
-            } else {
-                dayElem.classList.add('day');
-                dayElem.addEventListener('click', (function (d) {
-                    return function () {
-                        if (selectedDate) {
-                            selectedDate.classList.remove('selected');
-                        }
-                        dayElem.classList.add('selected');
-                        selectedDate = dayElem;
-                    }
-                })(new Date(date)));
+            const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            if (formattedDate === selectedDateValue) {
+                dayElem.classList.add('selected');
             }
+
+            dayElem.addEventListener('click', () => {
+                if (selectedDateValue === formattedDate) return;
+
+                const previouslySelected = document.querySelector('.days .selected');
+                if (previouslySelected) {
+                    previouslySelected.classList.remove('selected');
+                }
+                dayElem.classList.add('selected');
+                selectedDateValue = formattedDate;
+                document.getElementById('selected_date').value = selectedDateValue;
+            });
 
             daysContainer.appendChild(dayElem);
             date.setDate(date.getDate() + 1);
@@ -110,6 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderCalendar();
 });
+
+
 
 // Récupération des inputs
 const inputs = document.querySelectorAll('input[type="number"]');
@@ -131,3 +105,4 @@ inputs.forEach(input => {
     });
 
 });
+

@@ -43,11 +43,20 @@ main .main-content .div-top {
     flex-direction: row;
     gap: 15px;
     align-items: center;
+    justify-content: space-between;
 }
+
 
 .line-date {
     display: block;
     width: 217px;
+    height: 2px;
+    background: #FBC06C;
+}
+
+.line-total {
+    display: block;
+    width: 824px;
     height: 2px;
     background: #FBC06C;
 }
@@ -94,11 +103,6 @@ main .main-content .div-top {
     padding: 10px 14px;
     cursor: pointer;
     font-size: 1rem;
-}
-
-.div-left form .div-horaire .div-horaire-input .selected {
-    background-color: var(--fourth-color);
-    color: var(--main-color);
 }
 
 .hidden {
@@ -159,9 +163,10 @@ main .main-content .div-top {
     cursor: pointer;
 }
 
-.days .selected {
+.days .selected, .div-left form .div-horaire .div-horaire-input .selected {
     background-color: var(--fourth-color);
     color: var(--main-color);
+    border: var(--main-color) 1px solid;
 }
 
 .day:hover {

@@ -74,7 +74,7 @@
                                 <div class="content">
                                     <label for="billet-pleintarif">Plein tarif</label>
                                     <div>
-                                        <input type="number" name="billet-pleintarif" id="billet-pleintarif" min="0" value="0" data-price="9" onchange="verifyTicketLimit()">
+                                        <input type="number" name="billet-pleintarif" id="billet-pleintarif" min="0" value="0" data-price="9" max="10" onchange="verifyTicketLimit()">
                                         <p>9,00 €</p>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                     <label for="billet-reduit">Visiteur en situation d'handicape
                                     </label>
                                     <div>
-                                        <input type="number" name="billet-reduit" id="billet-reduit" min="0" value="0" data-price="7" onchange="verifyTicketLimit()">
+                                        <input type="number" name="billet-reduit" id="billet-reduit" min="0" value="0" data-price="7" max="10" onchange="verifyTicketLimit()">
                                         <p>7,00 €</p>
                                     </div>
                                 </div>
@@ -90,13 +90,13 @@
                                     <label for="billet-gratuit">Visiteur de moins de 25 ans
                                     </label>
                                     <div>
-                                        <input type="number" name="billet-gratuit" id="billet-gratuit" min="0" value="0" data-price="0" onchange="verifyTicketLimit()">
+                                        <input type="number" name="billet-gratuit" id="billet-gratuit" min="0" value="0" data-price="0" max="10" verifyTicketLimit()">
                                         <p>0,00 €</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="div-billet-total">
-                                <p>Total de la reservation : <span id="total">0</span>,00 €</p>
+                            <div>
+                                <p class="div-billet-total">Total : <span id="total">0</span>,00 €</p>
                                 </p>
                             </div>
                             <button type="submit" id="valider-btn">Valider</button>
@@ -128,20 +128,8 @@
                     </div>
 
                     <div class="flex-column">
-                        <label for="ccn">Numéro de carte banquaire<span class="required">*</span></label>
-                        <input id="ccn" type="tel" inputmode="numeric" pattern="\d{4}-\d{4}-\d{4}-\d{4}" autocomplete="cc-number" maxlength="19" placeholder="xxxx-xxxx-xxxx-xxxx" required>
-                    </div>
-
-                    <div class="flex-row">
-                        <div class="flex-column">
-                            <label for="date">Date d'expiration<span class="required">*</span></label>
-                            <input id="date" type="tel" inputmode="numeric" pattern="[0-9]{2}/[0-9]{2}" autocomplete="cc-exp" maxlength="5" placeholder="MM/YY" required>
-                        </div>
-
-                        <div class="flex-column">
-                            <label for="cvv">Cryptogramme visuel<span class="required">*</span></label>
-                            <input id="cvv" type="tel" inputmode="numeric" pattern="[0-9]{3}" autocomplete="cc-csc" maxlength="3" placeholder="XXX" required>
-                        </div>
+                        <label for="user_number">Numéro de téléphone<span class="required">*</span></label>
+                        <input id="user_number" type="tel" inputmode="numeric" pattern="[0-9]{10}" autocomplete="tel" placeholder="xx.xx.xx.xx.xx" required>
                     </div>
 
                     <button type="submit">Procéder au payement</button>
@@ -183,11 +171,6 @@
     });
 
     document.addEventListener('DOMContentLoaded', function() {
-        const ccnInput = document.getElementById('ccn');
-        ccnInput.addEventListener('input', function(e) {
-            const formattedValue = formatCreditCardNumber(e.target.value);
-            e.target.value = formattedValue;
-        });
 
         const dateInput = document.getElementById('date');
         dateInput.addEventListener('input', function(e) {
@@ -196,89 +179,40 @@
         });
     });
 
-    function formatCreditCardNumber(value) {
-        // Supprime tous les caractères non numériques
-        const numericValue = value.replace(/\D/g, '');
-        // Ajoute un tiret après chaque groupe de 4 chiffres
-        const formattedValue = numericValue.replace(/(\d{4})/g, '$1-');
-        // Supprime le dernier tiret ajouté s'il en a un
-        return formattedValue.replace(/-$/, '');
-    }
 
-    function formatExpiryDate(value) {
-        // Supprime tous les caractères non numériques
-        const numericValue = value.replace(/\D/g, '');
-        // Ajoute un / après les 2 premiers chiffres
-        const formattedValue = numericValue.replace(/^(\d{2})/, '$1/');
-        // Supprime les caractères après les 5 premiers chiffres
-        return formattedValue.slice(0, 5);
-    }
+    function verifyTicketLimit(currentInput) {
+        let totalTickets = 0;
+        const inputs = document.querySelectorAll('input[type="number"]');
 
-    function verifyTicketLimit() {
-        var totalTickets = 0;
-        var inputs = document.querySelectorAll('input[type="number"][name^="billet-"]');
-
-        inputs.forEach(function(input) {
+        inputs.forEach(input => {
             totalTickets += parseInt(input.value, 10) || 0;
         });
 
         if (totalTickets > 10) {
-            // Réinitialiser le dernier input modifié ou ajuster la quantité pour respecter la limite
-            // Cette partie peut être ajustée selon la logique que vous souhaitez implémenter
-            inputs[inputs.length - 1].value = Math.max(0, 10 - (totalTickets - inputs[inputs.length - 1].value));
+            let exceedAmount = totalTickets - 10;
+            currentInput.value = (parseInt(currentInput.value, 10) || 0) - exceedAmount;
         }
+
+        updateTotal();
     }
 
-    // A voir si ça fonctionne 
-    document.getElementById('reservationForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Empêche l'envoi classique du formulaire
-
-        // Récupération de l'heure et du jour sélectionnés
-        const selectedDate = document.getElementById('selected_date').value;
-        const selectedTime = document.querySelector('input[name="horaire"]:checked').value;
-
-        // Récupération des billets et de leur nombre
-        const tickets = document.querySelectorAll('input[name^="billet-"]');
-        let ticketsData = {};
-        tickets.forEach(ticket => {
-            // Utilise l'attribut name du billet comme clé et sa valeur (quantité) comme valeur
-            ticketsData[ticket.name] = ticket.value;
+    function updateTotal() {
+        let totalPrice = 0;
+        document.querySelectorAll('input[type="number"]').forEach(function(input) {
+            let quantity = parseInt(input.value, 10) || 0;
+            let price = parseFloat(input.getAttribute('data-price'));
+            totalPrice += quantity * price;
         });
+        document.getElementById('total').textContent = totalPrice;
+    }
 
-        // Création de l'objet de données à envoyer
-        const formData = {
-            date: selectedDate,
-            time: selectedTime,
-            tickets: ticketsData,
-            user: {
-                name: document.getElementById('user_name').value,
-                lastName: document.getElementById('user_last_name').value,
-                email: document.getElementById('user_mail').value,
-                creditCard: {
-                    number: document.getElementById('ccn').value.replace(/-/g,
-                        ''), // enlève les tirets pour le numéro de carte
-                    expiryDate: document.getElementById('date').value,
-                    cvv: document.getElementById('cvv').value
-                }
-            }
-        };
+    document.querySelectorAll('input[type="number"]').forEach(function(input) {
+        input.addEventListener('input', function() {
+            verifyTicketLimit(this);
+        });
+    });
 
-        // Envoi de la requête à l'API
-        fetch('https://artemisia.todoom.eu/API/index.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Traitez ici le succès (par exemple, affichez un message de confirmation)
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                // Traitez ici les erreurs (par exemple, affichez un message d'erreur)
-            });
+    document.addEventListener('DOMContentLoaded', function() {
+        updateTotal();
     });
 </script>
