@@ -83,8 +83,9 @@
                                 <div class="content">
                                     <label for="billet-pleintarif">Plein tarif</label>
                                     <div>
-                                        <input type="number" name="billet-pleintarif" id="billet-pleintarif" min="0"
-                                            value="0" data-price="9" max="10" onchange="verifyTicketLimit()">
+                                        <input type="number" class="billet" name="billet-pleintarif"
+                                            id="billet-pleintarif" min="0" value="0" data-price="9" max="10"
+                                            onchange="verifyTicketLimit()">
                                         <p>9,00 €</p>
                                     </div>
                                 </div>
@@ -92,8 +93,8 @@
                                     <label for="billet-reduit">Visiteur en situation d'handicape
                                     </label>
                                     <div>
-                                        <input type="number" name="billet-reduit" id="billet-reduit" min="0" value="0"
-                                            data-price="7" max="10" onchange="verifyTicketLimit()">
+                                        <input type="number" class="billet" name="billet-reduit" id="billet-reduit"
+                                            min="0" value="0" data-price="7" max="10" onchange="verifyTicketLimit()">
                                         <p>7,00 €</p>
                                     </div>
                                 </div>
@@ -101,8 +102,8 @@
                                     <label for="billet-gratuit">Visiteur de moins de 25 ans
                                     </label>
                                     <div>
-                                        <input type="number" name="billet-gratuit" id="billet-gratuit" min="0" value="0"
-                                            data-price="0" max="10" verifyTicketLimit()">
+                                        <input type="number" class="billet" name="billet-gratuit" id="billet-gratuit"
+                                            min="0" value="0" data-price="0" max="10" verifyTicketLimit()">
                                         <p>0,00 €</p>
                                     </div>
                                 </div>
@@ -147,7 +148,7 @@
 
                     <div class="flex-column">
                         <label for="user_age">Votre age<span class="required">*</span></label>
-                        <input type="number" name="user_age" id="user_age" required>
+                        <input type="text" id="age" name="age" maxlength="3" required>
 
                         <button type="submit">Procéder au payement</button>
                 </form>
@@ -199,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function verifyTicketLimit(currentInput) {
     let totalTickets = 0;
-    const inputs = document.querySelectorAll('input[type="number"]');
+    const inputs = document.querySelectorAll('.billet');
 
     inputs.forEach(input => {
         totalTickets += parseInt(input.value, 10) || 0;
@@ -213,7 +214,7 @@ function verifyTicketLimit(currentInput) {
 }
 
 
-document.querySelectorAll('input[type="number"]').forEach(function(input) {
+document.querySelectorAll('.billet').forEach(function(input) {
     input.addEventListener('input', function() {
         verifyTicketLimit(this);
     });
