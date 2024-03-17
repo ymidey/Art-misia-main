@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const daysContainer = document.querySelector('.days');
     const daysHeaderContainer = document.querySelector('.days-header');
     let currentDate = new Date();
-    let selectedDateValue = '';
+    let selectedDateValue = ''; // Pour stocker la date sélectionnée sous forme de chaîne
+    const today = new Date(); // Date d'aujourd'hui pour la comparaison
 
     const renderCalendar = () => {
         daysContainer.innerHTML = '';
@@ -44,26 +45,28 @@ document.addEventListener('DOMContentLoaded', function () {
             const dayElem = document.createElement('div');
             dayElem.className = 'day';
 
-            const dayNumber = document.createElement('p');
+            const dayNumber = document.createElement('p'); // Création d'un <p> pour le numéro du jour
             dayNumber.textContent = date.getDate();
-            dayElem.appendChild(dayNumber);
+            dayElem.appendChild(dayNumber); // Ajout du <p> à la div du jour
 
             const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-            if (formattedDate === selectedDateValue) {
+            if (date < today) {
+                dayElem.classList.add('day-past');
+            } else if (formattedDate === selectedDateValue) {
                 dayElem.classList.add('selected');
+            } else {
+                dayElem.addEventListener('click', () => {
+                    if (selectedDateValue === formattedDate) return;
+
+                    const previouslySelected = document.querySelector('.days .selected');
+                    if (previouslySelected) {
+                        previouslySelected.classList.remove('selected');
+                    }
+                    dayElem.classList.add('selected');
+                    selectedDateValue = formattedDate;
+                    document.getElementById('selected_date').value = selectedDateValue;
+                });
             }
-
-            dayElem.addEventListener('click', () => {
-                if (selectedDateValue === formattedDate) return;
-
-                const previouslySelected = document.querySelector('.days .selected');
-                if (previouslySelected) {
-                    previouslySelected.classList.remove('selected');
-                }
-                dayElem.classList.add('selected');
-                selectedDateValue = formattedDate;
-                document.getElementById('selected_date').value = selectedDateValue;
-            });
 
             daysContainer.appendChild(dayElem);
             date.setDate(date.getDate() + 1);
@@ -82,8 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderCalendar();
 });
-
-
 
 // Récupération des inputs
 const inputs = document.querySelectorAll('input[type="number"]');

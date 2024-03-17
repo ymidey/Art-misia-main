@@ -31,11 +31,25 @@ main .main-content .div-top {
     gap: 300px;
 }
 
+@media (max-width: 1200px) {
+    main .main-content .div-top {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
 .div-left {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 40%;
+}
+
+@media screen and (max-width: 1200px) {
+    .div-left {
+        width: 100%;
+    }
+
 }
 
 .div-left .date-header {
@@ -45,7 +59,6 @@ main .main-content .div-top {
     align-items: center;
     justify-content: space-between;
 }
-
 
 .line-date {
     display: block;
@@ -156,22 +169,21 @@ main .main-content .div-top {
 }
 
 .day-past {
-    color: #ccc;
+    color: #969696;
+    cursor: default;
 }
 
-.day {
+.days .day:not(.day-past):hover {
+    background-color: var(--fourth-color);
+    color: var(--main-color);
     cursor: pointer;
+
 }
 
 .days .selected, .div-left form .div-horaire .div-horaire-input .selected {
     background-color: var(--fourth-color);
     color: var(--main-color);
     border: var(--main-color) 1px solid;
-}
-
-.day:hover {
-    background-color: var(--fourth-color);
-    color: var(--main-color);
 }
 
 .div-billet-type {
@@ -205,7 +217,7 @@ main .main-content .div-top {
 .div-billet-type .content div {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
     gap: 15px;
 }
 
